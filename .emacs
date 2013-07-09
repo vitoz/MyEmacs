@@ -73,3 +73,5 @@
         try-expand-whole-kill
         )
       )
+
+(require 'xcscope)
