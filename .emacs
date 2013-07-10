@@ -32,7 +32,7 @@
 (setq abbrev-mode t)
 )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
- 
+: 
 ;;;;我的C++语言编辑策略
 (defun my-c++-mode-hook()
 (setq tab-width 4 indent-tabs-mode nil)
@@ -75,3 +75,52 @@
       )
 
 (require 'xcscope)
+
+;;;color-theme
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-dark-laptop)
+
+(set-default-font "DejaVu Sans Mono-12.0")
+
+;;;显示括号匹配 
+(show-paren-mode t)
+(setq show-paren-style 'parentheses)
+
+;; 默认显示 80列就换行 
+(setq default-fill-column 80) 
+
+;; 实现全屏效果，快捷键为f11
+(global-set-key [f11] 'my-fullscreen) 
+(defun my-fullscreen ()
+(interactive)
+(x-send-client-message
+nil 0 nil "_NET_WM_STATE" 32
+'(2 "_NET_WM_STATE_FULLSCREEN" 0))
+)
+;; 最大化
+(defun my-maximized ()
+(interactive)
+(x-send-client-message
+nil 0 nil "_NET_WM_STATE" 32
+'(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
+(x-send-client-message
+nil 0 nil "_NET_WM_STATE" 32
+'(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
+)
+
+;; 设置默认tab宽度为2
+(setq tab-width 2
+indent-tabs-mode t
+c-basic-offset 2)
+
+;; 显示行号
+(global-linum-mode t)
+
+;; C+K 删除行
+(global-set-key (kbd "C-K") 'kill-whole-line)
+
+;; 避免打开两个窗口
+(setq inhibit-startup-message t)
+(switch-to-buffer buffer-file-name) 
+(delete-other-windows)
